@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import Auth from "./pages/auth/Auth";
+import Bus from "./pages/bus/Bus";
+import BusSchedule from "./pages/busSchedule/BusSchedule";
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#723ab7",
+      light: "#2e2e2e",
+    },
+    secondary: {
+      main: "#522e87",
+      light: "#1a1a1a",
+    },
+    tertiary: {
+      main: "#ffffff",
+      light: "#595858",
+    },
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    //     <header className="App-header"></header>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+
+      {/* <Auth></Auth> */}
+      {/* <Bus></Bus> */}
+      <BusSchedule></BusSchedule>
+    </ThemeProvider>
   );
 }
 

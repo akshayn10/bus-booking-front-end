@@ -4,6 +4,7 @@ import Auth from "./pages/auth/Auth";
 import Bus from "./pages/bus/Bus";
 import BusSchedule from "./pages/busSchedule/BusSchedule";
 import {BrowserRouter as Router,Route,Routes, Navigate,useLocation} from "react-router-dom";
+import Booking from "./pages/booking/booking";
 
 const darkTheme = createTheme({
   palette: {
@@ -33,6 +34,7 @@ function App() {
           <Route path="/" element={<Auth />} />
           <Route path="/bus" element={<Bus />} />
           <Route path="/busSchedule" element={<BusSchedule />} />
+          <Route path="/booking" element={<Booking/>} />
 
         </Routes>
       </Router>

@@ -6,7 +6,7 @@ import DateTime from "../../components/formComponents/DateTime";
 import BusScheduleService from "../../services/busSchedule";
 import FormHelperText from "@mui/material/FormHelperText";
 import BusService from "../../services/bus";
-const BusSchedule = ({ role, setUser, user }) => {
+const BusSchedule = () => {
 
   // const [busSchedule, setBusSchedule] = useState([]);
   const [busScheduleData, setBusScheduleData] = useState({});

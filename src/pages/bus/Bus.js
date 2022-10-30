@@ -16,7 +16,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 
-const Bus = ({ }) => {
+const Bus = () => {
 
   const [bus, setBus] = useState([]);
   const [busData, setBusData] = useState({});

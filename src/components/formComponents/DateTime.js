@@ -11,7 +11,7 @@ const DateTime = () => {
   const [value, setValue] =
     (React.useState < Dayjs) | (null > dayjs("2014-08-18T21:11:54"));
 
-  const handleChange = (newValue: Dayjs | null) => {
+  const handleChange = (newValue) => {
     setValue(newValue);
   };
 

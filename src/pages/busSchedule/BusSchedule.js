@@ -28,7 +28,7 @@ const BusSchedule = ({ role, setUser, user }) => {
               <Input name="from" label="From" />
               <Input name="to" label="To" />
               <Input name="ticketPrice" label="Ticket Price" />
-              {/* <DateTime /> */}
+              <DateTime />
             </Grid>
 
             <Button

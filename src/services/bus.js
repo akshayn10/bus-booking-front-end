@@ -13,7 +13,10 @@ const addBus = (data) => {
     return API_URL.post('/bus',data);
 }
 
+const deleteBus = (id) => {
+    return API_URL.delete(`/bus/${id}`);
+}
 
 export default {
-    getAllBuses, addBus
+    getAllBuses, addBus, deleteBus
 }

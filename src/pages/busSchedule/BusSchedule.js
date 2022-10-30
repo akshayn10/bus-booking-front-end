@@ -6,7 +6,7 @@ import DateTime from "../../components/formComponents/DateTime";
 import BusScheduleService from "../../services/busSchedule";
 import FormHelperText from "@mui/material/FormHelperText";
 import BusService from "../../services/bus";
-const BusSchedule = () => {
+const BusSchedule = ({ role, setUser, user }) => {
 
   // const [busSchedule, setBusSchedule] = useState([]);
   const [busScheduleData, setBusScheduleData] = useState({});
@@ -42,8 +42,7 @@ const BusSchedule = () => {
     // setBusScheduleData((values) => ({ ...values, [name]: value }));
     // console.log(busScheduleData);
     // console.log(event);
-    setBusNumber(event.target.value);
-    console.log(busNumber);
+    setBusNumber(event.target.value)
   };
 
   const handleChange = (event) => {
@@ -125,7 +124,7 @@ const BusSchedule = () => {
               <Input name="startLocation" value={scheduleData.startLocation || ""} label="From" handleChange={handleChange}/>
               <Input name="destination" value={scheduleData.destination || ""}  label="To" />
               <DateTime name="departureTime" value={scheduleData.departureTime || ""}  label="Departure Time" />
-              <DateTime name="arrivalTime" value={scheduleData.arrivalTime || ""}  label="Arrival Time" />
+              {/* <DateTime name="arrivalTime" value={scheduleData.arrivalTime || ""}  label="Arrival Time" /> */}
               <Input name="ticketPrice" value={scheduleData.ticketPrice || ""}  label="Ticket Price" />
               
            

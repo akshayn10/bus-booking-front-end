@@ -3,12 +3,11 @@ import { useTheme } from "@mui/material/styles";
 
 export default makeStyles(() => ({
   paper: {
-    marginTop: useTheme().spacing(6),
-    marginBottom: useTheme().spacing(2),
+    marginTop: useTheme().spacing(8),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: useTheme().spacing(3),
+    padding: useTheme().spacing(2),
   },
   root: {
     "& .MuiTextField-root": {

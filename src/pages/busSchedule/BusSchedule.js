@@ -45,6 +45,14 @@ const BusSchedule = ({ role, setUser, user }) => {
     setBusNumber(event.target.value)
   };
 
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setScheduleData((values) => ({ ...values, [name]: value }));
+    console.log(scheduleData);
+  };
+
+
   // const getBusSchedule = async () => {
   //   try{
   //     const res = await BusScheduleService.getBusSchedule();
@@ -113,10 +121,13 @@ const BusSchedule = ({ role, setUser, user }) => {
                           
                         </FormControl>
                       </Grid>
-              <Input name="from" label="From" />
-              <Input name="to" label="To" />
-              <Input name="ticketPrice" label="Ticket Price" />
-              <DateTime />
+              <Input name="startLocation" value={scheduleData.startLocation || ""} label="From" handleChange={handleChange}/>
+              <Input name="destination" value={scheduleData.destination || ""}  label="To" />
+              <DateTime name="departureTime" value={scheduleData.departureTime || ""}  label="Departure Time" />
+              <DateTime name="arrivalTime" value={scheduleData.arrivalTime || ""}  label="Arrival Time" />
+              <Input name="ticketPrice" value={scheduleData.ticketPrice || ""}  label="Ticket Price" />
+              
+           
             </Grid>
 
             <Button

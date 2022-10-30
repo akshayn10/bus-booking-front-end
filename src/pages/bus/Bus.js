@@ -53,7 +53,7 @@ const Bus = ({ }) => {
       console.log(res.data);
       // window.location.reload(false);
       getBus();
-      setBusData([]);
+      setBusData(() => ([]));
     }
     catch (error) {
       console.log(error);
@@ -72,8 +72,8 @@ const Bus = ({ }) => {
           </Typography>
           <form className={classes.form}>
             <Grid container spacing={2}>
-              <Input name="busNumber" label="Bus Number" handleChange={handleChange}/>
-              <Input name="seatCapacity" label="Seat Capacity" handleChange={handleChange}/>
+              <Input name="busNumber" value={busData.busNumber||""} label="Bus Number" handleChange={handleChange}/>
+              <Input name="seatCapacity" value={busData.seatCapacity||""} label="Seat Capacity" handleChange={handleChange}/>
             </Grid>
 
             <Button

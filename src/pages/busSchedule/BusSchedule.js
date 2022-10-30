@@ -32,15 +32,17 @@ const BusSchedule = ({ role, setUser, user }) => {
   }, []);
 
   const handleBusChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setBusNumber(value);
+    // const name = event.target.name;
+    // const value = event.target.value;
+    
     // if(name=="busId"){
     //   const busNumber = bus.
     //   setBusScheduleData((values) => ({ ...values, [name]: value }));
     // }
     // setBusScheduleData((values) => ({ ...values, [name]: value }));
     // console.log(busScheduleData);
+    // console.log(event);
+    setBusNumber(event.target.value)
   };
 
   // const getBusSchedule = async () => {
@@ -95,7 +97,7 @@ const BusSchedule = ({ role, setUser, user }) => {
                           <Select
                             labelId="busNumber"
                             name="busId"
-                            value={""}
+                            value={busNumber}
                             label="busNumber"
                             onChange={handleBusChange}
                           >

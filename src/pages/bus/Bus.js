@@ -43,7 +43,6 @@ const Bus = ({ }) => {
   }
   useEffect(() => {
     getBus();
-
   }, []);
 
   const addNewBus = async (e) => {
@@ -52,7 +51,9 @@ const Bus = ({ }) => {
     try {
       const res = await BusService.addBus(busData);
       console.log(res.data);
-      window.location.reload(false);
+      // window.location.reload(false);
+      getBus();
+      setBusData([]);
     }
     catch (error) {
       console.log(error);

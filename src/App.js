@@ -3,6 +3,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Auth from "./pages/auth/Auth";
 import Bus from "./pages/bus/Bus";
 import BusSchedule from "./pages/busSchedule/BusSchedule";
+import {BrowserRouter as Router,Route,Routes, Navigate,useLocation} from "react-router-dom";
 
 const darkTheme = createTheme({
   palette: {
@@ -27,10 +28,16 @@ function App() {
     //     <header className="App-header"></header>
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Auth />} />
+          <Route path="/bus" element={<Bus />} />
+          <Route path="/busSchedule" element={<BusSchedule />} />
 
-      {/* <Auth></Auth> */}
-      {/* <Bus></Bus> */}
-      <BusSchedule></BusSchedule>
+        </Routes>
+      </Router>
+
+     
     </ThemeProvider>
   );
 }

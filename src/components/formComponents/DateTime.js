@@ -1,39 +1,76 @@
-import * as React from "react";
-import dayjs, { Dayjs } from "dayjs";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
+import 'date-fns';
+import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 const DateTime = () => {
-  const [value, setValue] =
-    (React.useState < Dayjs) | (null > dayjs("2014-08-18T21:11:54"));
 
-  const handleChange = (newValue) => {
-    setValue(newValue);
+  const [selectedStartDate, setSelectedStartDate] = React.useState(new Date('2014-08-18T21:11:54'));
+  const [selectedEndDate, setSelectedEndDate] = React.useState(new Date('2014-08-18T21:11:54'));
+
+
+  const handleStartDateChange = (date) => {
+    setSelectedStartDate(date);
+    console.log(date);
+  };
+  const handleEndDateChange = (date) => {
+    setSelectedEndDate(date);
+    console.log(date);
   };
 
-  return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Stack spacing={3}>
-        <DesktopDatePicker
-          label="Date"
-          inputFormat="MM/DD/YYYY"
-          value={value}
-          onChange={handleChange}
-          renderInput={(params) => <TextField {...params} />}
-        />
 
-        <TimePicker
-          label="Time"
-          value={value}
-          onChange={handleChange}
-          renderInput={(params) => <TextField {...params} />}
+  return (
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <Grid container justifyContent="space-around">
+      <KeyboardDatePicker
+        margin="normal"
+        id="date-picker-dialog"
+        label="Date picker dialog"
+        format="MM/dd/yyyy"
+        value={selectedStartDate}
+        onChange={handleStartDateChange}
+        KeyboardButtonProps={{
+          'aria-label': 'change start date',
+        }}
+      />
+              <KeyboardTimePicker
+          margin="normal"
+          id="time-picker"
+          label="Time picker"
+          value={selectedStartDate}
+          onChange={handleStartDateChange}
+          KeyboardButtonProps={{
+            'aria-label': 'change time',
+          }}
         />
-      </Stack>
-    </LocalizationProvider>
+              <KeyboardDatePicker
+        margin="normal"
+        id="date-picker-dialog"
+        label="Date picker dialog"
+        format="MM/dd/yyyy"
+        value={selectedEndDate}
+        onChange={handleEndDateChange}
+        KeyboardButtonProps={{
+          'aria-label': 'change end date',
+        }}
+      />
+              <KeyboardTimePicker
+          margin="normal"
+          id="time-picker"
+          label="Time picker"
+          value={selectedEndDate}
+          onChange={handleEndDateChange}
+          KeyboardButtonProps={{
+            'aria-label': 'change time',
+          }}
+        />
+    </Grid>
+  </MuiPickersUtilsProvider>
   );
 };
 

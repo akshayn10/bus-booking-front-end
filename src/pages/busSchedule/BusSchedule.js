@@ -42,7 +42,8 @@ const BusSchedule = () => {
     // setBusScheduleData((values) => ({ ...values, [name]: value }));
     // console.log(busScheduleData);
     // console.log(event);
-    setBusNumber(event.target.value)
+    setBusNumber(event.target.value);
+    console.log(busNumber);
   };
 
   // const getBusSchedule = async () => {

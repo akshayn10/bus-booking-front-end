@@ -10,7 +10,7 @@ import { experimentalStyled as styled } from '@mui/material/styles';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
-  padding: theme.spacing(2),
+  padding: theme.spacing(5),
   textAlign: 'center',
   color: theme.palette.text.secondary,
 }));
@@ -67,7 +67,7 @@ const Bus = () => {
       <Container component="main" maxWidth="xs">
         <Paper className={classes.paper} elevation={3}>
 
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h6">
             Adding New Bus
           </Typography>
           <form className={classes.form}>
@@ -80,7 +80,7 @@ const Bus = () => {
               // type="submit"
               onClick={addNewBus}
               className={classes.submit}
-              style={{ marginBottom: "15px", marginTop: "12px" }}
+              style={{ marginBottom: "6px", marginTop: "12px" }}
               fullWidth
               variant="contained"
               color="primary"
@@ -95,15 +95,15 @@ const Bus = () => {
    
 
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        <Grid container spacing={{ xs: 1, md: 2 }} columns={{ xs: 4, sm: 8, md: 12 }}>
 
           {bus.map((bus) => (
-            <Grid item xs={8} sm={4} md={4} key={bus.id}>
+            <Grid item xs={8} sm={4} md={3} key={bus.id}>
               <Item>
-                <Typography component="h2" variant="h5">
+                <Typography component="h2" variant="h6">
                   Bus Number: {bus.busNumber}
                 </Typography>
-                <Typography component="h2" variant="h5">
+                <Typography component="h2" variant="h6">
                   Seat Capacity: {bus.seatCapacity}
                 </Typography>
               </Item>

@@ -4,9 +4,8 @@ const API_URL = axios.create({baseURL:'http://localhost:8080/api'});
 
 
 
-const getBusSchedule = () => {
-    return API_URL.get('/schedule');
-    
+const getBusSchedules = (id) => {
+    return API_URL.get(`/schedule/bus/${id}`);
 };
 
 const addBusSchedule = async (data) => {
@@ -14,7 +13,11 @@ const addBusSchedule = async (data) => {
     return await API_URL.post(`/schedule`,data);
 }
 
+const deleteOneSchedule = (id) => {
+    return API_URL.delete(`/schedule/${id}`);
+}
+
 
 export default {
-    getBusSchedule, addBusSchedule
+    getBusSchedules, addBusSchedule,deleteOneSchedule
 }

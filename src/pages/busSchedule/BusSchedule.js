@@ -8,8 +8,10 @@ import {
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import {
+  Box,
   Button,
   Paper,
   Typography,
@@ -22,6 +24,16 @@ import {
 import useStyles from "./styles";
 import BusScheduleService from "../../services/busSchedule";
 import BusService from "../../services/bus";
+import { experimentalStyled as styled } from "@mui/material/styles";
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(5),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
+
 const BusSchedule = () => {
   const districts = [
     { name: "Colombo" },
@@ -52,6 +64,7 @@ const BusSchedule = () => {
   ];
 
   const [bus, setBus] = useState([]);
+  const [busSchedules, setBusSchedules] = useState([]);
   const [busId, setBusId] = useState("");
   const [departureTime, setDepartureTime] = React.useState(new Date());
   const [arrivalTime, setArrivalTime] = React.useState(new Date());
@@ -88,6 +101,7 @@ const BusSchedule = () => {
   }, []);
 
   const handleBusChange = (event) => {
+    getBusSchedules(event.target.value)
     setBusId(event.target.value);
   };
 
@@ -98,18 +112,27 @@ const BusSchedule = () => {
     setDestination(event.target.value);
   };
 
-  // const getBusSchedule = async () => {
-  //   try{
-  //     const res = await BusScheduleService.getBusSchedule();
-  //     console.log(res.data);
-  //     setBusSchedule(() => {
-  //       return res.data;
-  //     })
-  //   }
-  //   catch(error){
-  //     console.log(error);
-  //   }
-  // }
+  const deleteOneSchedule = async (id) => {
+    try {
+      const res = await BusScheduleService.deleteOneSchedule(id);
+      getBusSchedules(busId);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getBusSchedules = async (id) => {
+    try {
+      const res = await BusScheduleService.getBusSchedules(id);
+      console.log(res.data);
+      setBusSchedules(() => {
+        return res.data;
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const addNewBusSchedule = async (e) => {
     e.preventDefault();
@@ -119,11 +142,13 @@ const BusSchedule = () => {
         busId,
         startLocation,
         destination,
-        departureTime:departureTime.toString(),
-        arrivalTime:arrivalTime.toString(),
+        departureTime: departureTime.toString(),
+        arrivalTime: arrivalTime.toString(),
         ticketPrice,
       });
-      setBusId(null);
+     // setBusId(null);
+      getBusSchedules(busId)
+
       setStartLocation(null);
       setDestination(null);
       setDepartureTime(null);
@@ -137,167 +162,204 @@ const BusSchedule = () => {
 
   const classes = useStyles();
   return (
-    <Container component="main" maxWidth="xs">
-      <Paper className={classes.paper} elevation={3}>
-        <>
-          <Typography component="h1" variant="h5">
-            Bus Schedule
-          </Typography>
-          <form className={classes.form}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={12}>
-                <FormControl
-                  // sx={{ width: "100%" }}
-                  fullWidth
-                  required
-                >
-                  <InputLabel id="busNumber">Bus Number</InputLabel>
-                  <Select
-                    labelId="busNumber"
-                    name="busId"
-                    value={busId}
-                    label="busNumber"
-                    onChange={handleBusChange}
+    <Container container spacing={2}>
+      <Grid item xs={12} sm={6}>
+       <Paper className={classes.paper} elevation={3}>
+          <>
+            <Typography component="h1" variant="h5">
+              Bus Schedule
+            </Typography>
+            <form className={classes.form}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={12}>
+                  <FormControl
+                    // sx={{ width: "100%" }}
+                    fullWidth
+                    required
                   >
-                    {bus.map((bus) => {
-                      return (
-                        <MenuItem key={bus.id} value={bus.id}>
-                          {bus.busNumber}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <FormControl
-                  // sx={{ width: "100%" }}
-                  fullWidth
-                  required
-                >
-                  <InputLabel id="from">From</InputLabel>
-                  <Select
-                    labelId="from"
-                    name="district"
-                    value={startLocation}
-                    label="Start Location"
-                    onChange={handleStartLocation}
+                    <InputLabel id="busNumber">Bus Number</InputLabel>
+                    <Select
+                      labelId="busNumber"
+                      name="busId"
+                      value={busId}
+                      label="busNumber"
+                      onChange={handleBusChange}
+                    >
+                      {bus.map((bus) => {
+                        return (
+                          <MenuItem key={bus.id} value={bus.id}>
+                            {bus.busNumber}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <FormControl
+                    // sx={{ width: "100%" }}
+                    fullWidth
+                    required
                   >
-                    {districts.map((district) => {
-                      return (
-                        <MenuItem key={district.name} value={district.name}>
-                          {district.name}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <FormControl
-                  // sx={{ width: "100%" }}
-                  fullWidth
-                  required
-                >
-                  <InputLabel id="destination">Destination</InputLabel>
-                  <Select
-                    labelId="destination"
-                    name="destination"
-                    value={destination}
-                    label="destination"
-                    onChange={handleDestination}
+                    <InputLabel id="from">From</InputLabel>
+                    <Select
+                      labelId="from"
+                      name="district"
+                      value={startLocation}
+                      label="Start Location"
+                      onChange={handleStartLocation}
+                    >
+                      {districts.map((district) => {
+                        return (
+                          <MenuItem key={district.name} value={district.name}>
+                            {district.name}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <FormControl
+                    // sx={{ width: "100%" }}
+                    fullWidth
+                    required
                   >
-                    {districts.map((district) => {
-                      return (
-                        <MenuItem key={district.name} value={district.name}>
-                          {district.name}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
-              </Grid>
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <Grid
-                  container
-                  justifyContent="space-around"
-                  style={{
-                    color: "white",
-                  }}
-                >
-                  <KeyboardDatePicker
-                    margin="normal"
-                    id="date-picker-dialog"
-                    label="Date picker dialog"
-                    format="MM/dd/yyyy"
-                    value={departureTime}
-                    onChange={handleStartDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change start date",
+                    <InputLabel id="destination">Destination</InputLabel>
+                    <Select
+                      labelId="destination"
+                      name="destination"
+                      value={destination}
+                      label="destination"
+                      onChange={handleDestination}
+                    >
+                      {districts.map((district) => {
+                        return (
+                          <MenuItem key={district.name} value={district.name}>
+                            {district.name}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <Grid
+                    container
+                    justifyContent="space-around"
+                    style={{
+                      color: "white",
                     }}
-                  />
-                  <KeyboardTimePicker
-                    margin="normal"
-                    id="time-picker"
-                    label="Time picker"
-                    value={departureTime}
-                    onChange={handleStartDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change time",
-                    }}
-                  />
-                  <KeyboardDatePicker
-                    margin="normal"
-                    id="date-picker-dialog"
-                    label="Date picker dialog"
-                    style={{ text: "yellow" }}
-                    format="MM/dd/yyyy"
-                    value={arrivalTime}
-                    onChange={handleEndDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change end date",
-                    }}
-                  />
-                  <KeyboardTimePicker
-                    margin="normal"
-                    id="time-picker"
-                    label="Time picker"
-                    value={arrivalTime}
-                    onChange={handleEndDateChange}
-                    KeyboardButtonProps={{
-                      "aria-label": "change time",
-                    }}
+                  >
+                    <KeyboardDatePicker
+                      margin="normal"
+                      id="date-picker-dialog"
+                      label="Date picker dialog"
+                      format="MM/dd/yyyy"
+                      value={departureTime}
+                      onChange={handleStartDateChange}
+                      KeyboardButtonProps={{
+                        "aria-label": "change start date",
+                      }}
+                    />
+                    <KeyboardTimePicker
+                      margin="normal"
+                      id="time-picker"
+                      label="Time picker"
+                      value={departureTime}
+                      onChange={handleStartDateChange}
+                      KeyboardButtonProps={{
+                        "aria-label": "change time",
+                      }}
+                    />
+                    <KeyboardDatePicker
+                      margin="normal"
+                      id="date-picker-dialog"
+                      label="Date picker dialog"
+                      style={{ text: "yellow" }}
+                      format="MM/dd/yyyy"
+                      value={arrivalTime}
+                      onChange={handleEndDateChange}
+                      KeyboardButtonProps={{
+                        "aria-label": "change end date",
+                      }}
+                    />
+                    <KeyboardTimePicker
+                      margin="normal"
+                      id="time-picker"
+                      label="Time picker"
+                      value={arrivalTime}
+                      onChange={handleEndDateChange}
+                      KeyboardButtonProps={{
+                        "aria-label": "change time",
+                      }}
+                    />
+                  </Grid>
+                </MuiPickersUtilsProvider>
+                <Grid item xs={12} sm={12}>
+                  <TextField
+                    id="outlined-basic"
+                    fullWidth
+                    required
+                    label="Ticket Price"
+                    variant="outlined"
+                    value={ticketPrice}
+                    onChange={handleTicketPrice}
                   />
                 </Grid>
-              </MuiPickersUtilsProvider>
-              <Grid item xs={12} sm={12}>
-                <TextField
-                  id="outlined-basic"
-                  fullWidth
-                  label="Ticket Price"
-                  variant="outlined"
-                  value={ticketPrice}
-                  onChange={handleTicketPrice}
-                />
               </Grid>
-            </Grid>
 
-            <Button
-              onClick={addNewBusSchedule}
-              className={classes.submit}
-              style={{ marginBottom: "15px", marginTop: "12px" }}
-              fullWidth
-              variant="contained"
-              color="primary"
-              //   disabled={!form.email || !form.password}
-            >
-              ADD
-            </Button>
-          </form>
-        </>
-      </Paper>
+              <Button
+                onClick={addNewBusSchedule}
+                className={classes.submit}
+                style={{ marginBottom: "15px", marginTop: "12px" }}
+                fullWidth
+                variant="contained"
+                color="primary"
+                //   disabled={!form.email || !form.password}
+              >
+                ADD
+              </Button>
+            </form>
+          </>
+        </Paper>
+      </Grid>
+      {/* <Grid item xs={12} sm={6}> */}
+      {/* <Box sx={{ flexGrow: 1 }}> */}
+        <Grid
+          container
+          spacing={{ xs: 1, md: 1 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+        >
+          {busSchedules.map((schedule) => (
+            <Grid item xs={8} sm={4} md={3} key={schedule.id}>
+              <Item>
+                <Typography component="h2" variant="h6">
+                  From: {schedule.startLocation}
+                </Typography>
+                <Typography component="h2" variant="h6">
+                  To: {schedule.destination}
+                </Typography>
+                <Typography component="h2" variant="h6">
+                Departure: {schedule.departureTime}
+                </Typography>
+                <Typography component="h2" variant="h6">
+                  Arrival: {schedule.arrivalTime}
+                </Typography>
+                <Typography component="h2" variant="h6">
+                  Ticket Price: {schedule.ticketPrice}
+                </Typography>
+                <Button color="error" onClick={() => deleteOneSchedule(schedule.id)}>
+                  <DeleteIcon fontSize="small" />
+                </Button>
+              </Item>
+              {/* <Item>Seat Capacity: {bus.seatCapacity}</Item> */}
+            </Grid>
+          ))}
+        </Grid>
+      {/* </Box> */}
+      {/* </Grid> */}
     </Container>
   );
 };
-
 export default BusSchedule;

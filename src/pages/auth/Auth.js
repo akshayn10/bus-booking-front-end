@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
-import {
-  Avatar,
-  Button,
-  Paper,
-  Grid,
-  Typography,
-  Container,
-  TextField,
-} from "@mui/material";
-
+import { Avatar, Button, Paper,Grid, Typography,Container,TextField,} from "@mui/material";
 import useStyles from "./styles";
-
 import Input from "../../components/formComponents/Input";
+import LoginService from "../../services/login";
 
-const Auth = ({ role, setUser, user }) => {
+const[form, setForm] = useState({ email: "", password: "" });
+
+const handleChange = (e) => {
+  setForm({ ...form, [e.target.name]: e.target.value });
+};
+
+const Auth = ({ setUser, user }) => {
   const classes = useStyles();
   return (
     <Container component="main" maxWidth="xs">
@@ -25,17 +22,19 @@ const Auth = ({ role, setUser, user }) => {
           <form className={classes.form}>
             <Grid container spacing={2}>
               <Input
-                name="email"
-                label="Email Address"
-                //   handleChange={handleChange}
-                type="email"
+                name="userName"
+                label="User Name"
+                value={form.userName}
+                  handleChange={handleChange}
+                // type="email"
                 //   error={emailErrorMsg}
                 //   errorText={emailErrorMsg}
               />
               <Input
                 name="password"
                 label="Password"
-                //   handleChange={handleChange}
+                value={form.password}
+                  handleChange={handleChange}
                 //   type={showPassword ? "text" : "password"}
                 //   handleShowPassword={handleShowPassword}
                 //   error={passwordErrorMsg}
@@ -50,7 +49,7 @@ const Auth = ({ role, setUser, user }) => {
               fullWidth
               variant="contained"
               color="primary"
-              //   disabled={!form.email || !form.password}
+                disabled={!form.email || !form.password}
             >
               Sign in
             </Button>

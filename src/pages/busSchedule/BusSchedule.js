@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "date-fns";
 import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
@@ -115,7 +115,7 @@ const BusSchedule = () => {
     e.preventDefault();
 
     try {
-      const res = await BusScheduleService.addBusSchedule( {
+      const res = await BusScheduleService.addBusSchedule({
         busId,
         startLocation,
         destination,
@@ -145,7 +145,7 @@ const BusSchedule = () => {
           </Typography>
           <form className={classes.form}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <FormControl
                   // sx={{ width: "100%" }}
                   fullWidth
@@ -270,14 +270,16 @@ const BusSchedule = () => {
                   />
                 </Grid>
               </MuiPickersUtilsProvider>
-              <TextField
-                id="outlined-basic"
-                fullWidth
-                label="Ticket Price"
-                variant="outlined"
-                value={ticketPrice}
-                onChange={handleTicketPrice}
-              />
+              <Grid item xs={12} sm={12}>
+                <TextField
+                  id="outlined-basic"
+                  fullWidth
+                  label="Ticket Price"
+                  variant="outlined"
+                  value={ticketPrice}
+                  onChange={handleTicketPrice}
+                />
+              </Grid>
             </Grid>
 
             <Button

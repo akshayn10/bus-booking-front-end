@@ -60,12 +60,10 @@ const BusSchedule = () => {
   const [ticketPrice, setTicketPrice] = useState("");
 
   const handleStartDateChange = (date) => {
-    setDepartureTime(date.toString());
-    console.log(date);
+    setDepartureTime(date);
   };
   const handleEndDateChange = (date) => {
-    setArrivalTime(date.toString());
-    console.log(date);
+    setArrivalTime(date);
   };
   const handleTicketPrice = (event) => {
     event.preventDefault();
@@ -115,17 +113,23 @@ const BusSchedule = () => {
 
   const addNewBusSchedule = async (e) => {
     e.preventDefault();
+
     try {
       const res = await BusScheduleService.addBusSchedule({
         busId,
         startLocation,
         destination,
-        departureTime,
-        arrivalTime,
+        departureTime:departureTime.toString(),
+        arrivalTime:arrivalTime.toString(),
         ticketPrice,
       });
+      setBusId(null);
+      setStartLocation(null);
+      setDestination(null);
+      setDepartureTime(null);
+      setArrivalTime(null);
+      setTicketPrice("");
       console.log(res.data);
-      window.location.reload(false);
     } catch (error) {
       console.log(error);
     }

@@ -22,6 +22,7 @@ import {
 import useStyles from "./styles";
 import BusScheduleService from "../../services/busSchedule";
 import BusService from "../../services/bus";
+<<<<<<< HEAD
 const BusSchedule = () => {
   const districts = [
     { name: "Colombo" },
@@ -50,6 +51,9 @@ const BusSchedule = () => {
     { name: "Ratnapura" },
     { name: "Kegalle" },
   ];
+=======
+const BusSchedule = ({ role, setUser, user }) => {
+>>>>>>> 89efdfa75343c12d2f1874e597e9d6e539fb3165
 
   const [bus, setBus] = useState([]);
   const [busId, setBusId] = useState("");
@@ -90,7 +94,21 @@ const BusSchedule = () => {
   }, []);
 
   const handleBusChange = (event) => {
+<<<<<<< HEAD
     setBusId(event.target.value);
+=======
+    // const name = event.target.name;
+    // const value = event.target.value;
+    
+    // if(name=="busId"){
+    //   const busNumber = bus.
+    //   setBusScheduleData((values) => ({ ...values, [name]: value }));
+    // }
+    // setBusScheduleData((values) => ({ ...values, [name]: value }));
+    // console.log(busScheduleData);
+    // console.log(event);
+    setBusNumber(event.target.value)
+>>>>>>> 89efdfa75343c12d2f1874e597e9d6e539fb3165
   };
 
   const handleStartLocation = (event) => {
@@ -141,6 +159,7 @@ const BusSchedule = () => {
           </Typography>
           <form className={classes.form}>
             <Grid container spacing={2}>
+<<<<<<< HEAD
               <Grid item xs={12} sm={6}>
                 <FormControl
                   // sx={{ width: "100%" }}
@@ -274,6 +293,43 @@ const BusSchedule = () => {
                 value={ticketPrice}
                 onChange={handleTicketPrice}
               />
+=======
+            <Grid item xs={12} sm={6}>
+                        <FormControl
+                          // sx={{ width: "100%" }}
+                          fullWidth
+                          required
+                        >
+                          <InputLabel id="busNumber">
+                            Bus Number
+                          </InputLabel>
+                          <Select
+                            labelId="busNumber"
+                            name="busId"
+                            value={busNumber}
+                            label="busNumber"
+                            onChange={handleBusChange}
+                          >
+                            {bus.map((bus) => {
+                              return (
+                                <MenuItem key={bus.id} value={bus.id}>
+                                  {bus.busNumber}
+                                </MenuItem>
+                              );
+                            })}
+                          
+                          </Select>
+                          
+                        </FormControl>
+                      </Grid>
+              <Input name="startLocation" value={scheduleData.startLocation || ""} label="From" handleChange={handleChange}/>
+              <Input name="destination" value={scheduleData.destination || ""}  label="To" />
+              <DateTime name="departureTime" value={scheduleData.departureTime || ""}  label="Departure Time" />
+              {/* <DateTime name="arrivalTime" value={scheduleData.arrivalTime || ""}  label="Arrival Time" /> */}
+              <Input name="ticketPrice" value={scheduleData.ticketPrice || ""}  label="Ticket Price" />
+              
+           
+>>>>>>> 89efdfa75343c12d2f1874e597e9d6e539fb3165
             </Grid>
 
             <Button

@@ -6,6 +6,9 @@ import Input from "../../components/formComponents/Input";
 import Box from '@mui/material/Box';
 import CardContent from '@mui/material/CardContent';
 import { experimentalStyled as styled } from '@mui/material/styles';
+import DeleteIcon from "@mui/icons-material/Delete";
+import BusSchedule from "../busSchedule/BusSchedule";
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -60,6 +63,13 @@ const Bus = () => {
     }
   }
 
+  const deleteOneBus = async (e) => {
+    await BusService.deleteBus(e);
+    getBus();
+  
+  };
+
+
 
   const classes = useStyles();
   return (
@@ -106,6 +116,13 @@ const Bus = () => {
                 <Typography component="h2" variant="h6">
                   Seat Capacity: {bus.seatCapacity}
                 </Typography>
+                <Button 
+                
+                color="error"
+                
+                onClick={() => deleteOneBus(bus.id)}>  
+                  <DeleteIcon fontSize="small" />
+                </Button>
               </Item>
               {/* <Item>Seat Capacity: {bus.seatCapacity}</Item> */}
             </Grid>

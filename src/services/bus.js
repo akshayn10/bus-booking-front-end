@@ -17,6 +17,10 @@ const deleteBus = (id) => {
     return API_URL.delete(`/bus/${id}`);
 }
 
+const editBus = (id,data) => {
+    return API_URL.put(`/bus/${id}`,data);
+}
+
 export default {
-    getAllBuses, addBus, deleteBus
+    getAllBuses, addBus, deleteBus,editBus
 }

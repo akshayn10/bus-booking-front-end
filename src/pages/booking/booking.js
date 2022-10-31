@@ -8,6 +8,7 @@ import seatService from "../../services/seatService";
 import bookingService from "../../services/bookingService";
 import useStyles from "./styles";
 import { experimentalStyled as styled } from "@mui/material/styles";
+import { useLocation ,useNavigate} from "react-router-dom";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -15,12 +16,13 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "center",
   color: theme.palette.text.secondary,
 }));
-const Booking = () => {
-  const customerId = 1;
+const Booking = ({user}) => {
+  // const customerId = 1;
   const classes = useStyles();
   const [seats, setSeats] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
-
+  const location= useLocation();
+  const navigate=useNavigate();
   const handleSeatSelection = (event) => {
     if (event.target.checked) {
       setSelectedSeats([...selectedSeats, event.target.value]);
@@ -34,18 +36,21 @@ const Booking = () => {
   const createBooking = async () => {
     try {
       const response = await bookingService.createBooking({
-        customerId: customerId,
+        customerId: user.customerId,
         seats: selectedSeats,
       });
+      window.alert("Booking created successfully");
+      navigate("/search");
       console.log(response.data);
     } catch (error) {
       console.log(error);
     }
+
   };
 
   const getSeats = async () => {
     try {
-      const res = await seatService.getSeatsForBusSchedule();
+      const res = await seatService.getSeatsForBusSchedule(location.state.scheduleId);
       console.log(res.data);
       setSeats(() => {
         return res.data;

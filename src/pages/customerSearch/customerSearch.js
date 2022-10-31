@@ -10,12 +10,26 @@ import {
   FormControl,
   Select,
   Paper,
+  Typography,
   Button
 } from "@mui/material";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
+import Box from '@mui/material/Box';
+import { experimentalStyled as styled } from '@mui/material/styles';
+
+
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(5),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
+
 const CustomerSearch = () => {
     const  districts = [
         { name: "Colombo" },
@@ -65,10 +79,10 @@ const CustomerSearch = () => {
 
 
   return (
-
+<>
       <Container component="main" maxWidth="xs">
          <Paper className={classes.paper} elevation={3}>
-        <>
+        
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Grid
             container
@@ -91,7 +105,7 @@ const CustomerSearch = () => {
             />
             </Grid>
         </MuiPickersUtilsProvider>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={4}>
               <FormControl
                 // sx={{ width: "100%" }}
                 fullWidth
@@ -150,23 +164,36 @@ const CustomerSearch = () => {
             >
               Search
             </Button>
+     </Paper>
+  </Container>  
 
-            {
-                busSchedules.map((busSchedule) => {
-                    return (
-                        <div>
-                            <h1>{busSchedule.startLocation}</h1>
-                            <h1>{busSchedule.destination}</h1>
-                            <h1>{busSchedule.departureTime}</h1>
-                            <h1>{busSchedule.arrivalTime}</h1>
-                        </div>
-                    )
-                }
-                )
-            }
-            </>
-      </Paper>
-      </Container>
+<Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={{ xs: 1, md: 2 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+
+          {busSchedules.map((busSchedule) => (
+            <Grid item xs={8} sm={4} md={3} key={busSchedule.id}>
+              <Item>
+                <Typography component="h2" variant="h6">
+                  From: {busSchedule.startLocation}
+                </Typography>
+                <Typography component="h2" variant="h6">
+                  To: {busSchedule.destination}
+                </Typography>
+                <Typography component="h2" variant="h6">
+                  Departure Time: {busSchedule.departureTime}
+                </Typography>
+                <Typography component="h2" variant="h6">
+                  Arrival Time: {busSchedule.arrivalTime}
+                </Typography>
+              </Item>
+             
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+      </>      
+      
   );
 };
+
 export default CustomerSearch;

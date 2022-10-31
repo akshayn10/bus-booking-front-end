@@ -9,8 +9,9 @@ const getBusSchedule = () => {
     
 };
 
-const addBusSchedule = async (id,data) => {
-    return await API_URL.post(`/schedule/${id}`,data);
+const addBusSchedule = async (data) => {
+    console.log(data);
+    return await API_URL.post(`/schedule`,data);
 }
 
 

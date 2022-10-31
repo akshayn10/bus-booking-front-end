@@ -10,5 +10,5 @@ const loginAdmin= (data) => {
 
 
 export default {
-    addBus
+    loginAdmin
 }

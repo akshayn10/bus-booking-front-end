@@ -4,13 +4,14 @@ import useStyles from "./styles";
 import Input from "../../components/formComponents/Input";
 import LoginService from "../../services/login";
 
-const[form, setForm] = useState({ email: "", password: "" });
 
-const handleChange = (e) => {
-  setForm({ ...form, [e.target.name]: e.target.value });
-};
+
 
 const Auth = ({ setUser, user }) => {
+  const[form, setForm] = useState({ email: "", password: "" });
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
   const classes = useStyles();
   return (
     <Container component="main" maxWidth="xs">

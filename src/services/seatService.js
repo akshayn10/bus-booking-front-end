@@ -4,8 +4,8 @@ const API_URL = axios.create({baseURL:'http://localhost:8080/api/seat'});
 
 
 
-const getSeatsForBusSchedule = () => {
-    return API_URL.get('/schedule/1');
+const getSeatsForBusSchedule = (id) => {
+    return API_URL.get(`/schedule/${id}`);
     
 };
 

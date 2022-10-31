@@ -2,24 +2,11 @@ import React, { useState, useEffect } from "react";
 import DateFnsUtils from "@date-io/date-fns";
 import useStyles from "./styles";
 import busSchedule from "../../services/busSchedule";
-import {
-  Container,
-  Grid,
-  InputLabel,
-  MenuItem,
-  FormControl,
-  Select,
-  Paper,
-  Typography,
-  Button
-} from "@mui/material";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
+import { Container,Grid,InputLabel, MenuItem,FormControl,Select, Paper,Typography, Button} from "@mui/material";
+import { MuiPickersUtilsProvider,KeyboardDatePicker,} from "@material-ui/pickers";
 import Box from '@mui/material/Box';
 import { experimentalStyled as styled } from '@mui/material/styles';
-
+import { Link } from "react-router-dom";
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -31,6 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const CustomerSearch = () => {
+
     const  districts = [
         { name: "Colombo" },
         { name: "Gampaha" },
@@ -60,7 +48,7 @@ const CustomerSearch = () => {
       ]
 
   const classes = useStyles();
-
+  
   const [startLocation, setStartLocation] = useState("");
   const [destination, setDestination] = useState("");
   const [date, setDate] = useState(new Date());
@@ -76,6 +64,8 @@ const CustomerSearch = () => {
         console.log(e);
       });
   }
+
+  
 
   return (
 <>
@@ -193,10 +183,14 @@ const CustomerSearch = () => {
                 </Typography>
 
                 <Button 
+                component={Link}
+                to={`/booking`}
+                state={{scheduleId:busSchedule.id}}
                 color="primary"
                 backgroundColor="primary"
-                // onClick={() => deleteOneBus(bus.id)}
-                >  
+                // onClick={() => seatForOneBus(busSchedule.id)} 
+                >
+
                   Book Your Seat
                 </Button>
               </Item>

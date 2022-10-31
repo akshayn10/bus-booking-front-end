@@ -8,6 +8,7 @@ import seatService from "../../services/seatService";
 import bookingService from "../../services/bookingService";
 import useStyles from "./styles";
 import { experimentalStyled as styled } from "@mui/material/styles";
+import { useLocation } from "react-router-dom";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -20,7 +21,7 @@ const Booking = () => {
   const classes = useStyles();
   const [seats, setSeats] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
-
+  const location= useLocation();
   const handleSeatSelection = (event) => {
     if (event.target.checked) {
       setSelectedSeats([...selectedSeats, event.target.value]);
@@ -45,7 +46,7 @@ const Booking = () => {
 
   const getSeats = async () => {
     try {
-      const res = await seatService.getSeatsForBusSchedule();
+      const res = await seatService.getSeatsForBusSchedule(location.state.scheduleId);
       console.log(res.data);
       setSeats(() => {
         return res.data;

@@ -1,6 +1,6 @@
 import React from "react";
-// import Visibility from "@mui/icons-material/Visibility";
-// import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import { Grid, TextField, InputAdornment, IconButton } from "@mui/material";
 
@@ -32,17 +32,17 @@ const Input = ({
         helperText={errorText}
         autoFocus={autoFocus}
         type={type}
-        // InputProps={
-        //   name == "password" && {
-        //     endAdornment: (
-        //       <InputAdornment position="end">
-        //         <IconButton onClick={handleShowPassword}>
-        //           {type == "password" ? <Visibility /> : <VisibilityOff />}
-        //         </IconButton>
-        //       </InputAdornment>
-        //     ),
-        //   }
-        // }
+        InputProps={
+          name == "password" && {
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={handleShowPassword}>
+                  {type == "password" ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }
+        }
       />
     </Grid>
   );

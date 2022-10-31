@@ -16,8 +16,8 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "center",
   color: theme.palette.text.secondary,
 }));
-const Booking = () => {
-  const customerId = 1;
+const Booking = ({user}) => {
+  // const customerId = 1;
   const classes = useStyles();
   const [seats, setSeats] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
@@ -35,7 +35,7 @@ const Booking = () => {
   const createBooking = async () => {
     try {
       const response = await bookingService.createBooking({
-        customerId: customerId,
+        customerId: user.customerId,
         seats: selectedSeats,
       });
       console.log(response.data);

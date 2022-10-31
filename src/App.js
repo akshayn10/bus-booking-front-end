@@ -8,6 +8,8 @@ import Booking from "./pages/booking/booking";
 import CustomerSearch from "./pages/customerSearch/customerSearch";
 import { useState, useEffect } from "react";
 import AdminAuth from "./pages/auth/AdminAuth";
+import ScheduleSeats from "./pages/scheduleSeats/scheduleSeats";
+import Dashboard from "./pages/dashboard/dashboard";
 
 const darkTheme = createTheme({
   palette: {
@@ -46,6 +48,8 @@ function App() {
           <Route path="/booking" element={<Booking user={user}/>} />
           <Route path="/search" element={<CustomerSearch/>}/>
           <Route path="/admin" element={<AdminAuth setAdminUser={setAdminUser} adminUser={adminUser}/>} />
+          <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/admin/bookings" element={<ScheduleSeats/>}/>
 
         </Routes>
       </Router>

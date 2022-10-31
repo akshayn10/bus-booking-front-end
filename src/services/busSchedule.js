@@ -6,6 +6,10 @@ const getBusSchedules = (id) => {
     return API_URL.get(`/schedule/bus/${id}`);
 };
 
+const getAllBusSchedules = () => {
+    return API_URL.get(`/schedule`);
+};
+
 const addBusSchedule = async (data) => {
     return await API_URL.post(`/schedule`,data);
 }
@@ -19,5 +23,5 @@ const searchSchedule = async (data) => {
 }
 
 export default {
-    getBusSchedules, addBusSchedule,deleteOneSchedule,searchSchedule
+    getBusSchedules, getAllBusSchedules,addBusSchedule,deleteOneSchedule,searchSchedule
 }

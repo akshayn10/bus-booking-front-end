@@ -8,6 +8,9 @@ import seatService from "../../services/seatService";
 import bookingService from "../../services/bookingService";
 import useStyles from "./styles";
 import { experimentalStyled as styled } from "@mui/material/styles";
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -15,12 +18,12 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "center",
   color: theme.palette.text.secondary,
 }));
-const Booking = () => {
+const ScheduleSeats = () => {
   const [seats, setSeats] = useState([]);
-
+const location=useLocation();
   const getSeats = async () => {
     try {
-      const res = await seatService.getSeatsForBusSchedule();
+      const res = await seatService.getSeatsForBusSchedule(location.state.scheduleId);
       console.log(res.data);
       setSeats(() => {
         return res.data;
@@ -46,7 +49,7 @@ const Booking = () => {
                 <Item>
                   <FormGroup>
                     <FormControlLabel
-                      disabled={!seat.isAvailable}
+                      disabled
                       control={<Checkbox />}
                       label={seat.seatNumber}
                       value={seat.id}
@@ -59,9 +62,19 @@ const Booking = () => {
             ))}
           </Grid>
         </Box>
-
+        <Button
+                 component={Link}
+                 to={`/dashboard`}
+               
+                style={{ marginBottom: "15px", marginTop: "12px" }}
+                
+                variant="contained"
+                color="primary"
+              >
+                Go To Dashboard
+              </Button>
       </Container>
     </>
   );
 };
-export default Booking;
+export default ScheduleSeats;

@@ -10,11 +10,15 @@ const getBusSchedule = () => {
 };
 
 const addBusSchedule = async (data) => {
-    console.log(data);
     return await API_URL.post(`/schedule`,data);
+}
+
+const searchSchedule = async (data) => {
+    console.log(data);
+    return await API_URL.post(`/schedule/search`,data);
 }
 
 
 export default {
-    getBusSchedule, addBusSchedule
+    getBusSchedule, addBusSchedule, searchSchedule
 }

@@ -34,7 +34,7 @@ function App() {
     return JSON.parse(localStorage.getItem("profile"));
   });
   const [adminUser,setAdminUser]=useState(() => {
-    return JSON.parse(localStorage.getItem("profile"));
+    return JSON.parse(localStorage.getItem("adminProfile"));
   });
   return (
     //     <header className="App-header"></header>

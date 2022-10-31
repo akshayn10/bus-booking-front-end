@@ -11,13 +11,17 @@ import {
 import useStyles from "./styles";
 import { useNavigate, useLocation } from "react-router-dom";
 import Input from "../../components/formComponents/Input";
-import LoginService from "../../services/login";
+import AuthService from "../../services/auth";
 
 const Auth = ({ setUser, user }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
-  const [form, setForm] = useState({ mobileNumber: "", password: "" });
+  const [form, setForm] = useState({
+    name: "",
+    mobileNumber: "",
+    password: "",
+  });
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setMobileNumberErrorMsg("");
@@ -27,19 +31,26 @@ const Auth = ({ setUser, user }) => {
   const handleShowPassword = () => setShowPassword(!showPassword);
   const [mobileNumberErrorMsg, setMobileNumberErrorMsg] = useState("");
   const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
+  const [isLogin, setIsLogin] = useState(true);
 
-  const onLogin = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     setMobileNumberErrorMsg("");
     setPasswordErrorMsg("");
     try {
-      const res = await LoginService.loginCustomer(form);
+      if (isLogin) {
+        const res = await AuthService.loginCustomer({mobileNumber:form.mobileNumber, password: form.password});
 
-      localStorage.setItem("profile", JSON.stringify(res.data));
-      setUser(() => {
-        return JSON.parse(localStorage.getItem("profile"));
-      });
-      navigate("/search");
+        localStorage.setItem("profile", JSON.stringify(res.data));
+        setUser(() => {
+          return JSON.parse(localStorage.getItem("profile"));
+        });
+        navigate("/search");
+      }else {
+        const res = await AuthService.createCustomer(form);
+        window.alert("Successfully account created");
+        window.location.reload(false);
+      }
     } catch (err) {
       console.log(err);
       if (err.response.status === 500) {
@@ -49,7 +60,12 @@ const Auth = ({ setUser, user }) => {
           setMobileNumberErrorMsg("Invalid credential");
           setPasswordErrorMsg("Invalid credential");
         } else {
-          window.alert("Something went wrong, Colud not sign in");
+          if (isLogin) {
+            window.alert("Something went wrong, Colud not sign in");
+          }else {
+            window.alert("Something went wrong, Colud not sign up");
+          }
+          
         }
       }
     }
@@ -68,10 +84,17 @@ const Auth = ({ setUser, user }) => {
       <Paper className={classes.paper} elevation={3}>
         <>
           <Typography component="h1" variant="h5">
-            Log in
+            {isLogin ? "Login" : "SignUp"}
           </Typography>
-          <form className={classes.form} onSubmit={onLogin}>
+          <form className={classes.form} onSubmit={onSubmit}>
             <Grid container spacing={2}>
+              {!isLogin&&(<Input
+                name="name"
+                label="Full Name"
+                value={form.name}
+                handleChange={handleChange}
+              />)}
+
               <Input
                 name="mobileNumber"
                 label="Mobile Number"
@@ -99,9 +122,29 @@ const Auth = ({ setUser, user }) => {
               fullWidth
               variant="contained"
               color="primary"
-              disabled={!form.mobileNumber || !form.password}
+              disabled={(!form.mobileNumber || !form.password)|| (!isLogin&& !form.name)}
             >
-              Sign in
+              {isLogin ? "Login" : "SignUp"}
+            </Button>
+            <Typography component="h6" variant="h7">
+              {isLogin ? "Don't have an account?" : "Already have an account?"}
+            </Typography>
+            <Button
+              // className={classes.submit}
+              style={{ marginBottom: "15px", marginTop: "12px" }}
+              fullWidth
+              // variant="contained"
+              onClick={() => {
+                setIsLogin(!isLogin);
+                setForm({
+                  name: "",
+                  mobileNumber: "",
+                  password: "",
+                });
+              }}
+              color="primary"
+            >
+              {isLogin ? "SignUp" : "Login"}
             </Button>
           </form>
         </>

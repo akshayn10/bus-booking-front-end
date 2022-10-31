@@ -10,8 +10,11 @@ const loginAdmin= (data) => {
 const loginCustomer= (data) => {
     return API_URL.post('/customer/login',data);
 }
+const createCustomer= (data) => {
+    return API_URL.post('/customer',data);
+}
 
 
 export default {
-    loginAdmin,loginCustomer
+    loginAdmin,loginCustomer, createCustomer
 }

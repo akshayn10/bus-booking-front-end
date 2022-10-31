@@ -27,9 +27,9 @@ const AdminAuth = ({ setAdminUser, adminUser }) => {
     try {
       const res = await LoginService.loginAdmin(form);
 
-      localStorage.setItem("profile", JSON.stringify(res.data));
+      localStorage.setItem("adminProfile", JSON.stringify(res.data));
       setAdminUser(() => {
-        return JSON.parse(localStorage.getItem("profile"));
+        return JSON.parse(localStorage.getItem("adminProfile"));
       });
       navigate("/bus");
     } catch (err) {
@@ -49,7 +49,7 @@ const AdminAuth = ({ setAdminUser, adminUser }) => {
 
   useEffect(() => {
     setAdminUser(() => {
-      return JSON.parse(localStorage.getItem("profile"));
+      return JSON.parse(localStorage.getItem("adminProfile"));
     });
     if (adminUser) {
       navigate("/bus");

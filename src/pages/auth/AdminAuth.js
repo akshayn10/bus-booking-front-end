@@ -1,52 +1,44 @@
 import React, { useState, useEffect } from "react";
-import {
-  Avatar,
-  Button,
-  Paper,
-  Grid,
-  Typography,
-  Container,
-  TextField,
-} from "@mui/material";
+import { Avatar, Button,Paper,Grid,Typography, Container,TextField,} from "@mui/material";
 import useStyles from "./styles";
 import { useNavigate, useLocation } from "react-router-dom";
 import Input from "../../components/formComponents/Input";
 import LoginService from "../../services/auth";
 
-const Auth = ({ setUser, user }) => {
+const AdminAuth = ({ setAdminUser, adminUser }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
-  const [form, setForm] = useState({ mobileNumber: "", password: "" });
+  const [form, setForm] = useState({ userName: "", password: "" });
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    setMobileNumberErrorMsg("");
+    setUserNameErrorMsg("");
     setPasswordErrorMsg("");
   };
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
-  const [mobileNumberErrorMsg, setMobileNumberErrorMsg] = useState("");
+  const [userNameErrorMsg, setUserNameErrorMsg] = useState("");
   const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
 
   const onLogin = async (e) => {
     e.preventDefault();
-    setMobileNumberErrorMsg("");
+    setUserNameErrorMsg("");
     setPasswordErrorMsg("");
     try {
-      const res = await LoginService.loginCustomer(form);
+      const res = await LoginService.loginAdmin(form);
 
       localStorage.setItem("profile", JSON.stringify(res.data));
-      setUser(() => {
+      setAdminUser(() => {
         return JSON.parse(localStorage.getItem("profile"));
       });
-      navigate("/search");
+      navigate("/bus");
     } catch (err) {
       console.log(err);
       if (err.response.status === 500) {
         window.alert("There was a problem with the server, Colud not sign in");
       } else {
         if (err.response.status === 401) {
-          setMobileNumberErrorMsg("Invalid credential");
+            setUserNameErrorMsg("Invalid credential");
           setPasswordErrorMsg("Invalid credential");
         } else {
           window.alert("Something went wrong, Colud not sign in");
@@ -56,11 +48,11 @@ const Auth = ({ setUser, user }) => {
   };
 
   useEffect(() => {
-    setUser(() => {
+    setAdminUser(() => {
       return JSON.parse(localStorage.getItem("profile"));
     });
-    if (user?.isAuthenticated) {
-      navigate("/search");
+    if (adminUser) {
+      navigate("/bus");
     }
   }, [location]);
   return (
@@ -73,12 +65,12 @@ const Auth = ({ setUser, user }) => {
           <form className={classes.form} onSubmit={onLogin}>
             <Grid container spacing={2}>
               <Input
-                name="mobileNumber"
-                label="Mobile Number"
-                value={form.mobileNumber}
+                name="userName"
+                label="User Name"
+                value={form.userName}
                 handleChange={handleChange}
-                error={mobileNumberErrorMsg}
-                errorText={mobileNumberErrorMsg}
+                error={userNameErrorMsg}
+                errorText={userNameErrorMsg}
               />
               <Input
                 name="password"
@@ -99,7 +91,7 @@ const Auth = ({ setUser, user }) => {
               fullWidth
               variant="contained"
               color="primary"
-              disabled={!form.mobileNumber || !form.password}
+              disabled={!form.userName || !form.password}
             >
               Sign in
             </Button>
@@ -110,4 +102,4 @@ const Auth = ({ setUser, user }) => {
   );
 };
 
-export default Auth;
+export default AdminAuth;

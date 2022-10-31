@@ -8,7 +8,7 @@ import seatService from "../../services/seatService";
 import bookingService from "../../services/bookingService";
 import useStyles from "./styles";
 import { experimentalStyled as styled } from "@mui/material/styles";
-import { useLocation } from "react-router-dom";
+import { useLocation ,useNavigate} from "react-router-dom";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -22,6 +22,7 @@ const Booking = ({user}) => {
   const [seats, setSeats] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const location= useLocation();
+  const navigate=useNavigate();
   const handleSeatSelection = (event) => {
     if (event.target.checked) {
       setSelectedSeats([...selectedSeats, event.target.value]);
@@ -38,10 +39,13 @@ const Booking = ({user}) => {
         customerId: user.customerId,
         seats: selectedSeats,
       });
+      window.alert("Booking created successfully");
+      navigate("/search");
       console.log(response.data);
     } catch (error) {
       console.log(error);
     }
+
   };
 
   const getSeats = async () => {

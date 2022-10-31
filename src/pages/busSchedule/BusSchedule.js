@@ -114,6 +114,7 @@ const BusSchedule = () => {
 
   const deleteOneSchedule = async (id) => {
     try {
+      window.alert("Are you sure you want to delete this bus schedule?");
       const res = await BusScheduleService.deleteOneSchedule(id);
       getBusSchedules(busId);
       console.log(res.data);

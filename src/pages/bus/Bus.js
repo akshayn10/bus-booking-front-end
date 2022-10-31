@@ -64,8 +64,10 @@ const Bus = () => {
   }
 
   const deleteOneBus = async (e) => {
+    window.alert("Are you sure you want to delete this bus?");
     await BusService.deleteBus(e);
     getBus();
+
   
   };
 

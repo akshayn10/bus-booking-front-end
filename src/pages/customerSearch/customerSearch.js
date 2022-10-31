@@ -77,24 +77,25 @@ const CustomerSearch = () => {
       });
   }
 
-
   return (
 <>
       <Container component="main" maxWidth="xs">
+      <Grid item xs={12} sm={6}>
          <Paper className={classes.paper} elevation={3}>
-        
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+         <Typography component="h1" variant="h6">
+            Find Your Bus
+          </Typography>
+          <form className={classes.root}>
           <Grid
             container
             justifyContent="space-around"
-            style={{
-              color: "white",
-            }}
+            color={"primary"}
           >
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
               margin="normal"
               id="date-picker-dialog"
-              label="Date picker dialog"
+              label="Departure Date"
               style={{ text: "yellow" }}
               format="MM/dd/yyyy"
               value={date}
@@ -103,9 +104,11 @@ const CustomerSearch = () => {
                 "aria-label": "change end date",
               }}
             />
-            </Grid>
+            
         </MuiPickersUtilsProvider>
-            <Grid item xs={12} sm={4}>
+        </Grid>
+        <Grid container spacing={2}>
+            <Grid item xs={12} sm={12} >
               <FormControl
                 // sx={{ width: "100%" }}
                 fullWidth
@@ -128,14 +131,14 @@ const CustomerSearch = () => {
                   })}
                 </Select>
               </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={6}>
+              </Grid>
+              <Grid item xs={12} sm={12}>
               <FormControl
                 // sx={{ width: "100%" }}
                 fullWidth
                 required
               >
-                <InputLabel id="destination">Destination</InputLabel>
+                <InputLabel id="destination">To</InputLabel>
                 <Select
                   labelId="destination"
                   name="destination"
@@ -153,6 +156,7 @@ const CustomerSearch = () => {
                 </Select>
               </FormControl>
             </Grid>
+            </Grid>
             <Button
               onClick={searchBusSchedule}
               className={classes.submit}
@@ -164,7 +168,9 @@ const CustomerSearch = () => {
             >
               Search
             </Button>
+            </form>
      </Paper>
+     </Grid>
   </Container>  
 
 <Box sx={{ flexGrow: 1 }}>
@@ -185,6 +191,14 @@ const CustomerSearch = () => {
                 <Typography component="h2" variant="h6">
                   Arrival Time: {busSchedule.arrivalTime}
                 </Typography>
+
+                <Button 
+                color="primary"
+                backgroundColor="primary"
+                // onClick={() => deleteOneBus(bus.id)}
+                >  
+                  Book Your Seat
+                </Button>
               </Item>
              
             </Grid>

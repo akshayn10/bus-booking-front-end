@@ -171,7 +171,7 @@ const BusSchedule = () => {
             </Typography>
             <form className={classes.form}>
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={12}>
+                <Grid item xs={12} sm={12} >
                   <FormControl
                     // sx={{ width: "100%" }}
                     fullWidth
@@ -225,7 +225,7 @@ const BusSchedule = () => {
                     fullWidth
                     required
                   >
-                    <InputLabel id="destination">Destination</InputLabel>
+                    <InputLabel id="destination">To</InputLabel>
                     <Select
                       labelId="destination"
                       name="destination"
@@ -250,11 +250,12 @@ const BusSchedule = () => {
                     style={{
                       color: "white",
                     }}
+                    className={classes.root}
                   >
                     <KeyboardDatePicker
                       margin="normal"
                       id="date-picker-dialog"
-                      label="Date picker dialog"
+                      label="Departure Date"
                       format="MM/dd/yyyy"
                       value={departureTime}
                       onChange={handleStartDateChange}
@@ -265,7 +266,7 @@ const BusSchedule = () => {
                     <KeyboardTimePicker
                       margin="normal"
                       id="time-picker"
-                      label="Time picker"
+                      label="Departure Time"
                       value={departureTime}
                       onChange={handleStartDateChange}
                       KeyboardButtonProps={{
@@ -275,7 +276,7 @@ const BusSchedule = () => {
                     <KeyboardDatePicker
                       margin="normal"
                       id="date-picker-dialog"
-                      label="Date picker dialog"
+                      label="Arrival Date"
                       style={{ text: "yellow" }}
                       format="MM/dd/yyyy"
                       value={arrivalTime}
@@ -287,7 +288,7 @@ const BusSchedule = () => {
                     <KeyboardTimePicker
                       margin="normal"
                       id="time-picker"
-                      label="Time picker"
+                      label="Arrival Time"
                       value={arrivalTime}
                       onChange={handleEndDateChange}
                       KeyboardButtonProps={{

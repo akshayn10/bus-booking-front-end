@@ -13,6 +13,15 @@ export default makeStyles(() => ({
     "& .MuiTextField-root": {
       margin: useTheme().spacing(1),
     },
+    "& .MuiFormLabel-root": {
+      color: "#ccc",
+    },
+    "& .MuiInputBase-root ": {
+      color: "#ccc",
+    },
+    "& .MuiIconButton-root ": {
+      color: "#ccc",
+    },
   },
   avatar: {
     margin: useTheme().spacing(1),

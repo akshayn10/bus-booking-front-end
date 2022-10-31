@@ -39,7 +39,7 @@ const Booking = ({user}) => {
         customerId: user.customerId,
         seats: selectedSeats,
       });
-      window.alert("Booking created successfully");
+      window.alert(response.data.customerName+", Booking created successfully"+"\n"+"Booking Time:"+response.data.bookingTime+"\n"+"Booking ID:"+response.data.id+"\n"+"Bus Number:"+response.data.busNumber+"\n"+"Seats:"+response.data.seats);
       navigate("/search");
       console.log(response.data);
     } catch (error) {

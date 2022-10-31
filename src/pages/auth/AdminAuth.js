@@ -31,7 +31,7 @@ const AdminAuth = ({ setAdminUser, adminUser }) => {
       setAdminUser(() => {
         return JSON.parse(localStorage.getItem("adminProfile"));
       });
-      navigate("/bus");
+      navigate("/dashboard");
     } catch (err) {
       console.log(err);
       if (err.response.status === 500) {
@@ -52,7 +52,7 @@ const AdminAuth = ({ setAdminUser, adminUser }) => {
       return JSON.parse(localStorage.getItem("adminProfile"));
     });
     if (adminUser) {
-      navigate("/bus");
+      navigate("/dashboard");
     }
   }, [location]);
   return (
